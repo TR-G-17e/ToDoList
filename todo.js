@@ -2,7 +2,7 @@
 // todoList Array
 // {id, title, isDone}
 
-const todoList = [{ id: 1, title: "I'm First", isDone: false }];
+const todoList = JSON.parse(localStorage.getItem('toDoList'));
 
 function ToDo(title) {
     this.id = Date.now()
@@ -16,6 +16,7 @@ const submitFormHandle = (event) => {
   todoList.push( new ToDo(field.value) );
   field.value = "";
   renderTodoList();
+  localStorage.setItem('toDoList', JSON.stringify(todoList))
 };
 
 const renderTodoList = () => {
@@ -42,7 +43,12 @@ const liClickHandle = event => {
     // todoList[index].isDone = true
     todoList[index].isDone = !todoList[index].isDone
     renderTodoList()
+    localStorage.setItem('toDoList', JSON.stringify(todoList))
 }
+
+localStorage.setItem('header', "Super Application for my ToDo List")
+let header = localStorage.getItem('header')
+document.querySelector('h3').innerText = header
 
 document
   .querySelector("#todoForm")
